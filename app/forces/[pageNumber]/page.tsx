@@ -2,10 +2,10 @@ interface ForcesPageProps {
 	params: Promise<{ pageNumber: string }>;
 }
 
-// export const generateStaticParams = () => [
-// 	{ pageNumber: "1" },
-// 	{ pageNumber: "2" },
-// ];
+export const generateStaticParams = () => [
+	{ pageNumber: "1" },
+	{ pageNumber: "2" },
+];
 
 export default async function ForcesPage({ params }: ForcesPageProps) {
 	const { pageNumber } = await params;

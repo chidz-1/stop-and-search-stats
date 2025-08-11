@@ -1,3 +1,8 @@
+## Scratch pad 📝
+
+- Add note about usage of .env.example (don't forget your envs!) 
+- Suggestion for telemetry errors
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
