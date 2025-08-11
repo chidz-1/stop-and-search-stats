@@ -4,8 +4,10 @@ import {
 	formatBadResponseErrorText,
 } from "@/utils/errorHelpers";
 
-export async function fetchForces() {
-	// 💭 If I had control over the API I would use a Webhook to call the next.tag
+import { Force } from "../lib/types";
+
+export async function fetchForces(): Promise<Force[]> {
+	// 💭 Additionally, If I had control over the API I would use a Webhook to call the next.tag
 	// to revalidate if a new force was added.
 	try {
 		const policeApiOrigin = checkEnv(process.env.POLICE_API_ORIGIN);

@@ -3,6 +3,7 @@ export const errorLogEmojiConfig = {
 	fetchError: "🐶❌",
 	badApiResponse: "❌⬅️",
 	missingEnv: "🌱❓",
+	patternMisuse: "🤚🛑",
 };
 
 export function formatBadResponseErrorText(status: number, statusText: string) {
