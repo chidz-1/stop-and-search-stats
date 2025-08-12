@@ -9,10 +9,10 @@ interface ForcesPageProps {
 
 export async function generateStaticParams() {
 	const forcesData = await fetchForces();
-	const pageCount = getForcesPaginationPageCount(forcesData.length);
+	const pageCount = getForcesPaginationPageCount(forcesData.length); // TODO: Genericize, this currently could apply to any type of api data
 	return Array.from({ length: pageCount }, (_, index) => ({
-		pageNumber: index.toString(),
-	})).slice(1);
+		pageNumber: (index + 1).toString(),
+	}));
 }
 
 export default async function ForcesPage({ params }: ForcesPageProps) {

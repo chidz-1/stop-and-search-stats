@@ -12,7 +12,7 @@ export class PoliceApiBaseResponseComponent
 	envelopData(): PoliceAPiResponseData {
 		return {
 			data: this.rawApiData,
-			error: false,
+			error: !!this.rawApiData.length,
 			metadata: null,
 		};
 	}

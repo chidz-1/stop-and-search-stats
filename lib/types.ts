@@ -1,7 +1,13 @@
-import { Force } from "@/features/forces/lib/types";
+import {
+	Force,
+	ForceWithMostRecentStopPublishDate,
+} from "@/features/forces/lib/types";
 import { Stop } from "@/features/stops/lib/types";
 
-export type PoliceApiResponseTypes = Force[] | Stop[];
+export type PoliceApiResponseTypes =
+	| Force[]
+	| ForceWithMostRecentStopPublishDate[]
+	| Stop[];
 export interface Pagination {
 	page: number;
 	pageSize: number;
@@ -16,7 +22,7 @@ export interface PoliceApiBuilder {
 	getDataProduct(): PoliceAPiResponseData;
 }
 
-// ✉️ Enveloping of the police api responses for consistency and to facilitate "decoration"
+// ✉️ Enveloping of the police api responses for consistency and to facilitate decoration
 export interface PoliceAPiResponseData {
 	data: PoliceApiResponseTypes;
 	error: boolean;

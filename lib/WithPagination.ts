@@ -16,6 +16,12 @@ export class WithPagination extends PoliceApiBaseResponseDecorator {
 
 	envelopData(): PoliceAPiResponseData {
 		const prevDecoration = super.envelopData();
+
+		if (!prevDecoration.error) {
+			// Don't decorate, just propagate to the director (callee) and let it decide on a fallback
+			return prevDecoration;
+		}
+
 		let page = this.currentPage;
 		const totalNumberOfResults = prevDecoration.data.length;
 		const pageCount = Math.ceil(totalNumberOfResults / PAGINATION_PAGE_SIZE);
@@ -30,6 +36,7 @@ export class WithPagination extends PoliceApiBaseResponseDecorator {
 		const endIndex = startIndex + PAGINATION_PAGE_SIZE;
 		const newRecords = prevDecoration.data.slice(startIndex, endIndex);
 
+		// 2. Build the pagination metadata object
 		const paginationConfig: Pagination = {
 			page,
 			pageSize: PAGINATION_PAGE_SIZE,
@@ -37,6 +44,7 @@ export class WithPagination extends PoliceApiBaseResponseDecorator {
 			total: prevDecoration.data.length,
 		};
 
+		// 3. Merge in 👍
 		const metadata = {
 			...(prevDecoration.metadata ?? {}),
 			paginationConfig,

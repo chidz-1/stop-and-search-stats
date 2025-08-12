@@ -6,7 +6,8 @@ import { PoliceApiBaseResponseComponent } from "@/lib/PoliceApiBaseResponseCompo
 import { fetchForces } from "./fetchForces";
 import type { StopsAvailabilityEntry } from "@/features/stops/lib/types";
 import { fetchStopAvailability } from "@/features/stops/lib/fetchStopAvailability";
-import { WithPagination } from "@/lib/withPagination";
+import { WithPagination } from "@/lib/WithPagination";
+import { WithMostRecentStopsDate } from "./WithMostRecentStopsDate";
 
 export default class ForcesPaginationBuilder implements PoliceApiBuilder {
 	private rawForcesApiData: Force[] | null = null;
@@ -33,9 +34,13 @@ export default class ForcesPaginationBuilder implements PoliceApiBuilder {
 			this.rawForcesApiData
 		);
 		const withPagination = new WithPagination(baseForcesData, this.currentPage);
+		const withMostRecentStops = new WithMostRecentStopsDate(
+			withPagination,
+			this.stopsAvailabilityApiData
+		);
 
 		// Finished 👌
-		this.finalDataProduct = withPagination.envelopData();
+		this.finalDataProduct = withMostRecentStops.envelopData();
 	}
 
 	getDataProduct(): PoliceAPiResponseData {
