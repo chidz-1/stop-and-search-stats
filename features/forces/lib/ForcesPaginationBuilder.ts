@@ -6,6 +6,7 @@ import { PoliceApiBaseResponseComponent } from "@/lib/PoliceApiBaseResponseCompo
 import { fetchForces } from "./fetchForces";
 import type { StopsAvailabilityEntry } from "@/features/stops/lib/types";
 import { fetchStopAvailability } from "@/features/stops/lib/fetchStopAvailability";
+import { WithPagination } from "@/lib/withPagination";
 
 export default class ForcesPaginationBuilder implements PoliceApiBuilder {
 	private rawForcesApiData: Force[] | null = null;
@@ -27,10 +28,14 @@ export default class ForcesPaginationBuilder implements PoliceApiBuilder {
 			);
 		}
 
+		// Decorate! 🫳 🧂
 		const baseForcesData = new PoliceApiBaseResponseComponent(
 			this.rawForcesApiData
 		);
-		// const withPagination = TODO: Decorate with pagination
+		const withPagination = new WithPagination(baseForcesData, this.currentPage);
+
+		// Finished 👌
+		this.finalDataProduct = withPagination.envelopData();
 	}
 
 	getDataProduct(): PoliceAPiResponseData {

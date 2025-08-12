@@ -16,8 +16,14 @@ export class WithPagination extends PoliceApiBaseResponseDecorator {
 
 	envelopData(): PoliceAPiResponseData {
 		const prevDecoration = super.envelopData();
-		const page = this.currentPage;
+		let page = this.currentPage;
 		const totalNumberOfResults = prevDecoration.data.length;
+		const pageCount = Math.ceil(totalNumberOfResults / PAGINATION_PAGE_SIZE);
+
+		if (page > pageCount) {
+			// Cap the requested page to the pageCount limit
+			page = pageCount;
+		}
 
 		// 1. Replace the actual results truncated to the page
 		const startIndex = (page - 1) * PAGINATION_PAGE_SIZE;
@@ -27,7 +33,7 @@ export class WithPagination extends PoliceApiBaseResponseDecorator {
 		const paginationConfig: Pagination = {
 			page,
 			pageSize: PAGINATION_PAGE_SIZE,
-			pageCount: Math.ceil(totalNumberOfResults / PAGINATION_PAGE_SIZE),
+			pageCount,
 			total: prevDecoration.data.length,
 		};
 
