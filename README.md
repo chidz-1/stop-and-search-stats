@@ -3,6 +3,12 @@
 - Add note about usage of .env.example (don't forget your envs!) 
 - Suggestion for telemetry errors
 
+  Assumptions about the data:
+  
+  Stops by force:
+  - outcome_object: not explicitly mentioned in the API response description
+  - Treat all values as nullable: Inconsistency in descriptions i.e. officer_defined_ethnicity doesn't mention being nullable in the description (like other property descriptions) however, in the example/responses it may be null. To be as type safe as possible, all the *Stop* type's keys were treated as nullable.
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
