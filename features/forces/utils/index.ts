@@ -1,10 +1,11 @@
 import { redirect } from "next/navigation";
-import { FORCES_PAGINATION_PAGE_SIZE } from "../lib/config";
+
+import { PAGINATION_PAGE_SIZE } from "@/lib/config";
 
 export default function RedirectToPaginatedForcesPage() {
 	redirect("/forces/1");
 }
 
 export function getForcesPaginationPageCount(numberOfForces: number) {
-	return Math.ceil(numberOfForces / FORCES_PAGINATION_PAGE_SIZE);
+	return Math.ceil(numberOfForces / PAGINATION_PAGE_SIZE);
 }

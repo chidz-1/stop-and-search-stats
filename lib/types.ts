@@ -1,7 +1,8 @@
-import type { Force } from "@/features/forces/lib/types";
-import type { Stop } from "@/features/stops/lib/types";
+import { Force } from "@/features/forces/lib/types";
+import { Stop } from "@/features/stops/lib/types";
 
-interface Pagination {
+export type PoliceApiResponseTypes = Force[] | Stop[];
+export interface Pagination {
 	page: number;
 	pageSize: number;
 	pageCount: number;
@@ -9,31 +10,20 @@ interface Pagination {
 }
 
 // Builders
-
-export interface PoliceApiBuilder<D> {
+export interface PoliceApiBuilder {
 	fetchData(): Promise<void>;
 	formatData(): void;
-	getDataProduct(): PoliceAPiResponseData<D>;
+	getDataProduct(): PoliceAPiResponseData;
 }
 
 // ✉️ Enveloping of the police api responses for consistency and to facilitate "decoration"
-export interface PoliceAPiResponseData<D> {
-	data: D;
+export interface PoliceAPiResponseData {
+	data: PoliceApiResponseTypes;
 	error: boolean;
-	metadata?: Pagination;
+	metadata: null | { pagination?: Pagination };
 }
 
 // Components (The base for decorators)
-export interface PoliceApiResponseComponent<T> {
-	envelopData(): PoliceAPiResponseData<T>;
-}
-
-// Decorators
-export abstract class PoliceApiResponseDecorator<D extends Force[] | Stop[]>
-	implements PoliceApiResponseComponent<D>
-{
-	constructor(protected componentToDecorate: PoliceApiResponseComponent<D>) {}
-	envelopData(): PoliceAPiResponseData<D> {
-		throw new Error("Method not implemented.");
-	}
+export interface PoliceApiResponseComponent {
+	envelopData(): PoliceAPiResponseData;
 }
