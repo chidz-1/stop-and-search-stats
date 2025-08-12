@@ -1,12 +1,26 @@
-export interface PoliceAPiBuilder {
-	fetchData(): Promise<void>;
-	formatData(): void;
-	getDataProduct(): unknown; // FIXME: Create product type that is a decorator component "PoliceAPiResponseData<T>"
+interface Pagination {
+	page: number;
+	pageSize: number;
+	pageCount: number;
+	total: number;
 }
 
-// ✉️ Enveloping of the police api responses for consistency and to facilitate decorators
+// Builders
+
+export interface PoliceApiBuilder<D> {
+	fetchData(): Promise<void>;
+	formatData(): void;
+	getDataProduct(): PoliceAPiResponseData<D>;
+}
+
+// ✉️ Enveloping of the police api responses for consistency and to facilitate "decoration"
 export interface PoliceAPiResponseData<D> {
-	data: D[];
-	metadata: unknown; // FIXME: should be an interface with *optional* decorated keys or null, will make this interface asap
+	data: D;
 	error: boolean;
+	metadata?: Pagination;
+}
+
+// Components (The base for decorators)
+export interface PoliceApiResponseComponent<T> {
+	envelopData(): PoliceAPiResponseData<T>;
 }

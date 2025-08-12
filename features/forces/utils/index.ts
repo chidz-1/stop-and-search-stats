@@ -1,3 +1,5 @@
+import { redirect } from "next/navigation";
+
 import {
 	checkEnv,
 	errorLogEmojiConfig,
@@ -5,6 +7,7 @@ import {
 } from "@/utils/errorHelpers";
 
 import { Force } from "../lib/types";
+import { FORCES_PAGINATION_PAGE_SIZE } from "../lib/config";
 
 export async function fetchForces(): Promise<Force[]> {
 	// 💭 Additionally, If I had control over the API I would use a Webhook to call the next.tag
@@ -27,4 +30,12 @@ export async function fetchForces(): Promise<Force[]> {
 		);
 		throw e;
 	}
+}
+
+export default function RedirectToPaginatedForcesPage() {
+	redirect("/forces/1");
+}
+
+export function getForcesPaginationPageCount(numberOfForces: number) {
+	return Math.ceil(numberOfForces / FORCES_PAGINATION_PAGE_SIZE);
 }

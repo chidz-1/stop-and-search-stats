@@ -1,0 +1,1 @@
+export const FORCES_PAGINATION_PAGE_SIZE = 10;
