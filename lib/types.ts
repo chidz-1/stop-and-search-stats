@@ -8,6 +8,7 @@ export type PoliceApiResponseTypes =
 	| Force[]
 	| ForceWithMostRecentStopPublishDate[]
 	| Stop[];
+
 export interface Pagination {
 	page: number;
 	pageSize: number;
@@ -15,18 +16,18 @@ export interface Pagination {
 	total: number;
 }
 
-// Builders
-export interface PoliceApiBuilder {
-	fetchData(): Promise<void>;
-	formatData(): void;
-	getDataProduct(): PoliceAPiResponseData;
-}
-
 // ✉️ Enveloping of the police api responses for consistency and to facilitate decoration
 export interface PoliceAPiResponseData {
 	data: PoliceApiResponseTypes;
 	error: boolean;
 	metadata: null | { pagination?: Pagination };
+}
+
+// Builders
+export interface PoliceApiBuilder {
+	fetchData(): Promise<void>;
+	formatData(): void;
+	getDataProduct(): PoliceAPiResponseData;
 }
 
 // Components (The base for decorators)

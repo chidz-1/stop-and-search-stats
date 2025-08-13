@@ -1,6 +1,10 @@
 import { fetchForces } from "@/features/forces/lib/fetchForces";
 import ForcesPaginationBuilder from "@/features/forces/lib/ForcesPaginationBuilder";
-import { getForcesPaginationPageCount } from "@/features/forces/utils";
+import { ForceWithMostRecentStopPublishDate } from "@/features/forces/lib/types";
+import {
+	getForcesPageMarkup,
+	getForcesPaginationPageCount,
+} from "@/features/forces/utils";
 import { PoliceApiResponseDirector } from "@/lib/PoliceApiResponseDirector";
 
 interface ForcesPageProps {
@@ -16,20 +20,29 @@ export async function generateStaticParams() {
 }
 
 export default async function ForcesPage({ params }: ForcesPageProps) {
+	console.log(`♻️ [in ForcesPage] Rendering`);
+
 	const { pageNumber } = await params;
 	const currentPage = parseInt(pageNumber) || 1; // TODO: 🥇 util to do a validity check ... Infinite check? instead?
 
 	const forcesPageApiDirector = new PoliceApiResponseDirector(
 		new ForcesPaginationBuilder(currentPage)
 	);
-	const response = await forcesPageApiDirector.constructApiResponse();
 
-	console.log(`♻️ [in ForcesPage] Rendering`);
+	const { data, error, metadata } =
+		await forcesPageApiDirector.constructApiResponse();
+
+	const forcesDataWithRecentStopsDate =
+		data as ForceWithMostRecentStopPublishDate[];
+
 	return (
 		<div>
 			<h1>Forces - page {currentPage}</h1>
 			<h2>Forces Data response:</h2>
-			<pre>{JSON.stringify(response, null, 4)}</pre>
+			{error
+				? "TODO: Fallback message"
+				: getForcesPageMarkup(forcesDataWithRecentStopsDate)}
+			<pre>{JSON.stringify(forcesDataWithRecentStopsDate, null, 4)}</pre>
 		</div>
 	);
 }

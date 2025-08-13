@@ -15,7 +15,7 @@ export class WithMostRecentStopsDate extends PoliceApiBaseResponseDecorator {
 	envelopData(): PoliceAPiResponseData {
 		const prevDecoration = super.envelopData();
 
-		if (!prevDecoration.error || !isForcesApiData(prevDecoration.data)) {
+		if (prevDecoration.error || !isForcesApiData(prevDecoration.data)) {
 			// Don't decorate, just propagate to the highest callee (the director) and let it decide on a fallback
 			return prevDecoration;
 		}

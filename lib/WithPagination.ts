@@ -17,7 +17,7 @@ export class WithPagination extends PoliceApiBaseResponseDecorator {
 	envelopData(): PoliceAPiResponseData {
 		const prevDecoration = super.envelopData();
 
-		if (!prevDecoration.error) {
+		if (prevDecoration.error) {
 			// Don't decorate, just propagate to the director (callee) and let it decide on a fallback
 			return prevDecoration;
 		}

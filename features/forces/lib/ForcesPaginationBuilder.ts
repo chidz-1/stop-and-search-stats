@@ -33,7 +33,9 @@ export default class ForcesPaginationBuilder implements PoliceApiBuilder {
 		const baseForcesData = new PoliceApiBaseResponseComponent(
 			this.rawForcesApiData
 		);
+
 		const withPagination = new WithPagination(baseForcesData, this.currentPage);
+
 		const withMostRecentStops = new WithMostRecentStopsDate(
 			withPagination,
 			this.stopsAvailabilityApiData
