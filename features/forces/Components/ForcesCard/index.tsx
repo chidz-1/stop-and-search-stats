@@ -5,6 +5,8 @@ import { Card, CardFooter, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
 interface ForcesCardProps {
 	forceId: string;
 	forceName: string;
@@ -20,7 +22,11 @@ export function ForcesCard({
 		<li>
 			<Card>
 				<CardHeader>
-					{/* TODO: Include psudeo avatar here 👍 */}
+					<Avatar>
+						<AvatarFallback aria-hidden="true">
+							{forceName.slice(0, 2)}
+						</AvatarFallback>
+					</Avatar>
 					<h2>{forceName}</h2>
 				</CardHeader>
 				<CardFooter>
