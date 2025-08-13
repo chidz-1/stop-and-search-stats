@@ -1,3 +1,38 @@
+## Scratch pad 📝
+
+- Add note about usage of .env.example (don't forget your envs!) 
+- Suggestion for telemetry errors
+
+
+  Assumptions about the data:
+  
+  Stops by force:
+  - 
+  - 
+
+## Police API shortfalls
+
+1. Stops by force:
+
+1.1. outcome_object: not explicitly mentioned in the API response description
+
+1.2. Inconsistency in descriptions i.e. officer_defined_ethnicity doesn't mention being nullable in the description (like other property descriptions) however, in the example/responses it may be null. To be as type safe as possible, i've treated all the *Stop* type's keys were treated as nullable.
+
+❗As of 12/08/25...
+
+1.3. 05/25 is the last available month, yet 06/25 contradicts their docs (returns [] instead of the *latest* data)
+
+- https://data.police.uk/api/stops-force?date=2025-06&force=leicestershire
+		
+1.4. 07/25 actually returns a 502 error instead of an empty array like above nor the latest data
+
+- https://data.police.uk/api/stops-force?date=2025-07&force=leicestershire
+		
+1.5. Not passing the date search param doesn't default to the latest month (it's response is incorrect)
+
+- https://data.police.uk/api/stops-force?force=leicestershire
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
