@@ -1,3 +1,5 @@
+import { NullablePoliceApiData } from "@/lib/types";
+
 interface StopStreet {
 	id: number;
 	name: string;
@@ -14,7 +16,7 @@ interface SearchReason {
 	name: string;
 }
 
-export interface Stop {
+export interface BaseStop {
 	age_range: string;
 	officer_defined_ethnicity: string;
 	involved_person: boolean;
@@ -32,6 +34,22 @@ export interface Stop {
 	operation_name: string;
 	removal_of_more_than_outer_clothing: boolean;
 }
+
+// 💭 Seen some inconsistencies in the nullishness of data in the API docs
+//  assume they all could be
+export type Stop = NullablePoliceApiData<BaseStop>;
+
+export type QualitativeStop = Pick<
+	Stop,
+	| "outcome"
+	| "self_defined_ethnicity"
+	| "gender"
+	| "outcome_linked_to_object_of_search"
+	| "removal_of_more_than_outer_clothing"
+	| "outcome_object"
+	| "operation_name"
+	| "involved_person"
+>;
 
 export interface StopsAvailabilityEntry {
 	date: string;
