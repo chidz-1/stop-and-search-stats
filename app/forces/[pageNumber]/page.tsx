@@ -43,7 +43,11 @@ export default async function ForcesPage({ params }: ForcesPageProps) {
 			<h2>Forces Data response:</h2>
 			{error
 				? "TODO: Fallback message"
-				: getForcesPageMarkup(forcesDataWithRecentStopsDate)}
+				: getForcesPageMarkup(
+						forcesDataWithRecentStopsDate,
+						currentPage,
+						metadata?.pagination
+				  )}
 			<pre>{JSON.stringify(forcesDataWithRecentStopsDate, null, 4)}</pre>
 			<pre>{JSON.stringify(metadata, null, 4)}</pre>
 		</div>
