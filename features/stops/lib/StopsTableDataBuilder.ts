@@ -1,15 +1,19 @@
 import { PoliceApiBuilder, PoliceAPiResponseData } from "@/lib/types";
-import { Stop } from "./types";
+import { Stop, StopKeys } from "./types";
 import { fetchStops } from "./fetchStops";
 import { errorLogEmojiConfig } from "@/utils/errorHelpers";
-import { WithOnlyQuantitativeFields } from "./WithOnlyQuantitativeFields";
+import { WithOnlySpecificStopFields } from "./WithOnlySpecificStopFields";
 import { PoliceApiBaseResponseComponent } from "@/lib/PoliceApiBaseResponseComponent";
 
-export class StopsTableDataBuilder implements PoliceApiBuilder {
+export class StopsDataBuilder implements PoliceApiBuilder {
 	private rawStopsApiData: Stop[] | null = null;
 	private finalDataProduct: PoliceAPiResponseData | null = null;
 
-	constructor(private forceId: string, private date: string) {}
+	constructor(
+		private forceId: string,
+		private date: string,
+		private fieldsToPick: StopKeys[]
+	) {}
 
 	async fetchData(): Promise<void> {
 		this.rawStopsApiData = await fetchStops(this.date, this.forceId);
@@ -27,11 +31,12 @@ export class StopsTableDataBuilder implements PoliceApiBuilder {
 			this.rawStopsApiData
 		);
 
-		const decoratedWithOnlyQuantitativeFields = new WithOnlyQuantitativeFields(
-			baseForcesData
+		const decoratedWithOnlySpecificStopFields = new WithOnlySpecificStopFields(
+			baseForcesData,
+			this.fieldsToPick
 		);
 
-		this.finalDataProduct = decoratedWithOnlyQuantitativeFields.envelopData();
+		this.finalDataProduct = decoratedWithOnlySpecificStopFields.envelopData();
 	}
 
 	getDataProduct(): PoliceAPiResponseData {

@@ -55,3 +55,5 @@ export interface StopsAvailabilityEntry {
 	date: string;
 	"stop-and-search": string[];
 }
+
+export type StopKeys = keyof Stop;
