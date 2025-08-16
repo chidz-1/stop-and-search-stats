@@ -5,7 +5,8 @@ import {
 } from "@/utils/errorHelpers";
 
 import { StopsAvailabilityEntry } from "./types";
-import { FORCES_AVAILABILITY_FETCH_REVALIDATION_SECS } from "@/features/forces/lib/config";
+import { STOPS_FETCH_REVALIDATION_SECS } from "./config";
+
 
 export async function fetchStopAvailability(): Promise<
 	StopsAvailabilityEntry[]
@@ -16,7 +17,7 @@ export async function fetchStopAvailability(): Promise<
 		const policeApiOrigin = checkEnv(process.env.POLICE_API_ORIGIN);
 		const response = await fetch(`${policeApiOrigin}/api/crimes-street-dates`, {
 			cache: "force-cache",
-			next: { revalidate: FORCES_AVAILABILITY_FETCH_REVALIDATION_SECS },
+			next: { revalidate: STOPS_FETCH_REVALIDATION_SECS },
 		});
 
 		if (!response.ok) {

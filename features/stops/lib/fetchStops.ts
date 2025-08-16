@@ -9,6 +9,11 @@ export async function fetchStops(
 	date: string,
 	forceId: string
 ): Promise<Stop[]> {
+	"use cache";
+
+	// TODO[cacheExperiment]
+	console.log(`💵'ing fetch response! \n ⌚ Timestamp = ${new Date()}`);
+
 	try {
 		const policeApiOrigin = checkEnv(process.env.POLICE_API_ORIGIN);
 		const response = await fetch(

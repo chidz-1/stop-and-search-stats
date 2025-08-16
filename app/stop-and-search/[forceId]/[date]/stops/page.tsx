@@ -1,5 +1,5 @@
-import { StopsDataBuilder } from "@/features/stops/lib/StopsTableDataBuilder";
-import { QualitativeStop, Stop } from "@/features/stops/lib/types";
+import { StopsDataBuilder } from "@/features/stops/lib/StopsDataBuilder";
+import { QualitativeStop } from "@/features/stops/lib/types";
 import { PoliceApiResponseDirector } from "@/lib/PoliceApiResponseDirector";
 
 interface StopsTablePageProps {
@@ -22,7 +22,7 @@ export default async function StopsTablePage({ params }: StopsTablePageProps) {
 		])
 	);
 
-	const { data } = await stopsTablePageApiDirector.constructApiResponse(); // TODO: destructor error
+	const { data } = await stopsTablePageApiDirector.constructApiResponse(); // TODO: destructor error and handle a fallback
 
 	const qualitativeStopData = data as QualitativeStop[];
 
