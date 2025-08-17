@@ -39,3 +39,5 @@ export interface PoliceApiResponseComponent {
 export type NullablePoliceApiData<T> = {
 	[K in keyof T]: T[K] | null;
 };
+
+export type ChartConfigHelperFn = (stopData: Stop[]) => "";

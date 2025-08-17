@@ -26,7 +26,7 @@ export class StopsDataBuilder implements PoliceApiBuilder {
 			);
 		}
 
-		// Decorate
+		// Decorate 👍
 		const baseForcesData = new PoliceApiBaseResponseComponent(
 			this.rawStopsApiData
 		);
