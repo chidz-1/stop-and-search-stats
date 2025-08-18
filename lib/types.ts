@@ -40,4 +40,4 @@ export type NullablePoliceApiData<T> = {
 	[K in keyof T]: T[K] | null;
 };
 
-export type ChartConfigHelperFn = (stopData: Stop[]) => "";
+export type KeysOfUnion<T> = T extends unknown ? keyof T : never;

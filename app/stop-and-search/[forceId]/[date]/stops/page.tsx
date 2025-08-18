@@ -1,9 +1,10 @@
 import { StopsDataBuilder } from "@/features/stops/lib/StopsDataBuilder";
 import { QualitativeStop } from "@/features/stops/lib/types";
 import { PoliceApiResponseDirector } from "@/lib/PoliceApiResponseDirector";
+import { StopAndSearchSubPageParams } from "@/lib/types";
 
 interface StopsTablePageProps {
-	params: Promise<{ forceId: string; date: string; page: string }>;
+	params: StopAndSearchSubPageParams;
 }
 
 export default async function StopsTablePage({ params }: StopsTablePageProps) {
