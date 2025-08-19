@@ -1,11 +1,5 @@
 import { PoliceApiResponseTypes } from "@/lib/types";
-import {
-	Stop,
-	StopCategoryKeys,
-	StopKeys,
-	StopsChartConfigHelperFn,
-	StopsChartDataCategoryConfig,
-} from "../lib/types";
+import { Stop, StopKeys, StopsChartDataCategoryConfig } from "../lib/types";
 
 export function isStopsApiData(data: PoliceApiResponseTypes): data is Stop[] {
 	return data.length > 0 && "age_range" in data[0];
@@ -20,10 +14,10 @@ export function pickSpecificFieldsFromAStop<F extends StopKeys>(
 	) as Pick<Stop, F>;
 }
 
-export function stopsCategoryCountReducerFn<
-	S extends Record<StopCategoryKeys, string>,
-	K extends StopCategoryKeys
->(categoryKey: K) {
+export function getStopsCategoryCountReducerFn<
+	S extends Record<C, S[C]>,
+	C extends string
+>(categoryKey: C) {
 	return (
 		accCategoryConfig: StopsChartDataCategoryConfig,
 		currentStopObj: S
@@ -44,10 +38,13 @@ export function stopsCategoryCountReducerFn<
 	};
 }
 
-export const getConfigForPieChart: StopsChartConfigHelperFn = async (
-	stopData,
-	category
-) => {
+export async function getConfigForPieChart<
+	S extends Record<C, S[C]>,
+	C extends string
+>(stopData: S[], category: C) {
 	"use cache";
-	return stopData.reduce(stopsCategoryCountReducerFn(category), {});
-};
+	console.log(
+		`💵 [using cache in getConfigForPieChart], timestamp = ${new Date()}`
+	);
+	return stopData.reduce(getStopsCategoryCountReducerFn(category), {});
+}

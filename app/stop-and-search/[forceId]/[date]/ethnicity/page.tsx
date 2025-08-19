@@ -1,7 +1,10 @@
 import CategoryChartConfigFactory from "@/features/stops/lib/CategoryChartConfigFactory";
 import { StopsDataBuilder } from "@/features/stops/lib/StopsDataBuilder";
 import { PoliceApiResponseDirector } from "@/lib/PoliceApiResponseDirector";
-import { StopAndSearchSubPageParams } from "@/features/stops/lib/types";
+import {
+	StopAndSearchSubPageParams,
+	StopFormattedByEthnicity,
+} from "@/features/stops/lib/types";
 
 interface StopEthnicityDemographicsPageProps {
 	params: StopAndSearchSubPageParams;
@@ -21,15 +24,15 @@ export default async function StopEthnicityDemographicsPage({
 	const { data: stopsByOnlyEthnicityResponse } =
 		await stopsTablePageApiDirector.constructApiResponse(); // TODO: destructor error and handle a fallback
 
-	const factory = new CategoryChartConfigFactory(
-		stopsByOnlyEthnicityResponse,
+	const factory = await new CategoryChartConfigFactory(
+		stopsByOnlyEthnicityResponse as StopFormattedByEthnicity[],
 		"self_defined_ethnicity"
-	);
+	).getConfig();
 
 	return (
 		<>
 			<h1>Stops: Ethnicity pie chart:</h1>
-			<pre>{JSON.stringify(stopsByOnlyEthnicityResponse, null, 4)}</pre>
+			<pre>{JSON.stringify(factory, null, 4)}</pre>
 		</>
 	);
 }

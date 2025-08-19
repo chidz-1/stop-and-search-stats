@@ -1,21 +1,32 @@
-import { StopCategoryKeys } from "@/features/stops/lib/types";
 import { getConfigForPieChart } from "../utils";
+import {
+	CategoryBasedChartStop,
+	StopCategoryKeys,
+	StopFormattedByAgeRange,
+	StopFormattedByEthnicity,
+} from "./types";
 
 // i.e. Bar chart, pie chart...
 
-export default class CategoryChartConfigFactory<
-	S extends Record<StopCategoryKeys, string>,
-	K extends StopCategoryKeys
-> {
-	constructor(private stopData: S[], private stopCategory: K) {}
+export default class CategoryChartConfigFactory {
+	constructor(
+		private stopData: CategoryBasedChartStop[],
+		private stopCategory: StopCategoryKeys
+	) {}
 
-	// FIXME: final return type is StopsCategoryChartConfig
-	getConfig() {
+	// FIXME: final return type is StopsCategoryChartConfig onc i've finalized the data 👍
+	async getConfig() {
 		switch (this.stopCategory) {
 			case "self_defined_ethnicity":
-				return getConfigForPieChart(this.stopData, "self_defined_ethnicity");
+				return await getConfigForPieChart(
+					this.stopData as StopFormattedByEthnicity[],
+					"self_defined_ethnicity"
+				);
 			case "age_range":
-				return getConfigForPieChart(this.stopData, "age_range");
+				return await getConfigForPieChart(
+					this.stopData as StopFormattedByAgeRange[],
+					"age_range"
+				);
 			default:
 				((_: never) => {
 					throw new Error(

@@ -75,9 +75,9 @@ export type CategoryBasedChartStop =
 	| StopFormattedByAgeRange;
 
 export type StopsChartConfigHelperFn<
-	S extends Record<StopCategoryKeys, string> = Record<StopCategoryKeys, string>,
-	K extends StopCategoryKeys = StopCategoryKeys
-> = (stopData: S[], category: K) => Promise<StopsChartDataCategoryConfig>;
+	S extends Record<C, S[C]>,
+	C extends string
+> = (stopData: S[], category: C) => Promise<StopsChartDataCategoryConfig>;
 
 export interface StopsChartDataCategoryConfig {
 	[category: string]: number;
