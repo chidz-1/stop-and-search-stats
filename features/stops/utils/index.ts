@@ -1,10 +1,10 @@
-import { KeysOfUnion, PoliceApiResponseTypes } from "@/lib/types";
+import { PoliceApiResponseTypes } from "@/lib/types";
 import {
 	Stop,
+	StopCategoryKeys,
 	StopKeys,
 	StopsChartConfigHelperFn,
 	StopsChartDataCategoryConfig,
-	CategoryBasedChartStop,
 } from "../lib/types";
 
 export function isStopsApiData(data: PoliceApiResponseTypes): data is Stop[] {
@@ -21,14 +21,14 @@ export function pickSpecificFieldsFromAStop<F extends StopKeys>(
 }
 
 export function stopsCategoryCountReducerFn<
-	S extends CategoryBasedChartStop,
-	K extends KeysOfUnion<S> = KeysOfUnion<S>
+	S extends Record<StopCategoryKeys, string>,
+	K extends StopCategoryKeys
 >(categoryKey: K) {
 	return (
 		accCategoryConfig: StopsChartDataCategoryConfig,
 		currentStopObj: S
 	) => {
-		const categoryValue = currentStopObj[categoryKey] as string;
+		const categoryValue = currentStopObj[categoryKey];
 
 		if (!categoryValue) {
 			// if it's *null* then skip by returning the accCategoryConfig

@@ -1,4 +1,4 @@
-import { KeysOfUnion, NullablePoliceApiData } from "@/lib/types";
+import { NullablePoliceApiData } from "@/lib/types";
 
 interface StopStreet {
 	id: number;
@@ -68,13 +68,15 @@ export interface StopsCategoryChartConfig {
 
 // 📊 Chart related types
 
+export type StopCategoryKeys = "self_defined_ethnicity" | "age_range";
+
 export type CategoryBasedChartStop =
 	| StopFormattedByEthnicity
 	| StopFormattedByAgeRange;
 
 export type StopsChartConfigHelperFn<
-	S extends CategoryBasedChartStop = CategoryBasedChartStop,
-	K extends KeysOfUnion<S> = KeysOfUnion<S>
+	S extends Record<StopCategoryKeys, string> = Record<StopCategoryKeys, string>,
+	K extends StopCategoryKeys = StopCategoryKeys
 > = (stopData: S[], category: K) => Promise<StopsChartDataCategoryConfig>;
 
 export interface StopsChartDataCategoryConfig {
