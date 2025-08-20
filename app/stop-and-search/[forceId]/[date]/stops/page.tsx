@@ -1,7 +1,9 @@
 import { StopsDataBuilder } from "@/features/stops/lib/StopsDataBuilder";
-import { QualitativeStop } from "@/features/stops/lib/types";
+import {
+	QualitativeStop,
+	StopAndSearchSubPageParams,
+} from "@/features/stops/lib/types";
 import { PoliceApiResponseDirector } from "@/lib/PoliceApiResponseDirector";
-import { StopAndSearchSubPageParams } from "@/lib/types";
 
 interface StopsTablePageProps {
 	params: StopAndSearchSubPageParams;

@@ -1,3 +1,4 @@
+import { errorLogEmojiConfig } from "@/utils/errorHelpers";
 import { getConfigForPieChart } from "../utils";
 import {
 	CategoryBasedChartStop,
@@ -30,7 +31,7 @@ export default class CategoryChartConfigFactory {
 			default:
 				((_: never) => {
 					throw new Error(
-						`[in CategoryChartConfigFactory > getConfig()] Unreachable case on ${_}`
+						`${errorLogEmojiConfig.patternMisuse}: [in CategoryChartConfigFactory] Unimplemented factory category on ${_}`
 					);
 				})(this.stopCategory);
 		}

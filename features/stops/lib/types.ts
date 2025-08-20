@@ -1,3 +1,4 @@
+import { ChartConfig } from "@/components/ui/chart";
 import { NullablePoliceApiData } from "@/lib/types";
 
 interface StopStreet {
@@ -88,3 +89,18 @@ export type StopAndSearchSubPageParams = Promise<{
 	date: string;
 	page: string;
 }>;
+
+export type RechartCategoryBasedChartData = {
+	[key: string]: string | number;
+};
+
+export interface ChartConfigProduct {
+	chartPlottableData: RechartCategoryBasedChartData[];
+	chartConfig: ChartConfig;
+}
+
+export interface ChartConfigBuilder {
+	createChartConfig(): void;
+	createPlottableData(): void;
+	getFullConfig(): ChartConfigProduct;
+}
