@@ -8,7 +8,7 @@ import {
 	ChartLegendContent,
 } from "@/components/ui/chart";
 
-interface StopsPieChartProps {
+export interface StopsPieChartProps {
 	dataConfig: ChartConfigProduct;
 	dataKey: string;
 	nameKey: string;
