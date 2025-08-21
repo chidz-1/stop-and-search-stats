@@ -80,6 +80,11 @@ export type StopsChartConfigHelperFn<
 	C extends string
 > = (stopData: S[], category: C) => Promise<StopsChartDataCategoryConfig>;
 
+export type StopsChartDataWeightedCategoryList = {
+	category: string;
+	count: number;
+}[];
+
 export interface StopsChartDataCategoryConfig {
 	[category: string]: number;
 }

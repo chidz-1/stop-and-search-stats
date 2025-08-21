@@ -28,8 +28,7 @@ export default function StopsPieChart({
 				<Pie data={chartPlottableData} dataKey={dataKey} />
 				<ChartLegend
 					content={<ChartLegendContent nameKey={nameKey} />}
-					className="grid grid-cols-2"
-					//-translate-y-2 flex-wrap gap-2 *:basis-1/4 *:justify-center
+					className="flex flex-col sm:flex-row flex-wrap justify-center *:justify-center -translate-y-4"
 				/>
 			</PieChart>
 		</ChartContainer>

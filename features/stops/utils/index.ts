@@ -1,5 +1,10 @@
 import { PoliceApiResponseTypes } from "@/lib/types";
-import { Stop, StopKeys, StopsChartDataCategoryConfig } from "../lib/types";
+import {
+	Stop,
+	StopKeys,
+	StopsChartDataCategoryConfig,
+	StopsChartDataWeightedCategoryList,
+} from "../lib/types";
 import RechartPieChartConfigBuilder from "../lib/RechartPieChartConfigBuilder";
 import PieChartDirector from "@/features/stops/lib/PieChartDirector";
 
@@ -42,6 +47,27 @@ export function getStopsCategoryCountReducerFn<
 	};
 }
 
+export function SortAndSliceCategories(
+	categories: StopsChartDataCategoryConfig,
+	sliceEndIndex: number
+): StopsChartDataCategoryConfig {
+	const weightedCategoryList: StopsChartDataWeightedCategoryList =
+		Object.entries(categories).map(([category, count]) => ({
+			category,
+			count,
+		}));
+
+	return weightedCategoryList
+		.sort((a, b) => b.count - a.count) // 👉 *Sort* (desc)
+		.slice(0, sliceEndIndex)
+		.reduce((accConfig, { category, count }) => {
+			return {
+				...accConfig,
+				[category]: count,
+			};
+		}, {});
+}
+
 export async function getConfigForPieChart<
 	S extends Record<C, S[C]>,
 	C extends string
@@ -52,13 +78,15 @@ export async function getConfigForPieChart<
 	// );
 
 	// Categorize the data into an object
-	const categorizedData = stopData.reduce(
+	let categorizedData = stopData.reduce(
 		getStopsCategoryCountReducerFn(category),
 		{}
 	);
 
-	// trim the categories to top {maxCategories}
-	// categorizedData
+	// Trim the categories to top {maxCategories}
+	if (maxCategories !== null && maxCategories > 2) {
+		categorizedData = SortAndSliceCategories(categorizedData, 5);
+	}
 
 	// Build the chart config (currently using Rechart)
 	const pieChartDirector = new PieChartDirector(

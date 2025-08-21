@@ -21,7 +21,8 @@ export default class CategoryChartConfigFactory {
 			case "self_defined_ethnicity":
 				return await getConfigForPieChart(
 					this.stopData as StopFormattedByEthnicity[],
-					"self_defined_ethnicity"
+					"self_defined_ethnicity",
+					5
 				);
 			case "age_range":
 				return await getConfigForPieChart(
