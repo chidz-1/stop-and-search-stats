@@ -23,12 +23,21 @@ export default async function StopEthnicityDemographicsPage({
 	);
 
 	const { data: stopsByOnlyEthnicityResponse } =
-		await stopsTablePageApiDirector.constructApiResponse(); // TODO: destructor error and handle a fallback
+		await stopsTablePageApiDirector.constructApiResponse(); // FIXME: destructor error and handle a fallback
 
 	const factory = await new CategoryChartConfigFactory(
 		stopsByOnlyEthnicityResponse as StopFormattedByEthnicity[],
 		"self_defined_ethnicity"
 	).getConfig();
+
+	// Confirm loading.tsx is in play
+	const msg = await new Promise((res) => {
+		setTimeout(() => {
+			res(`⌚ Artificial delay finished 👍`);
+		}, 5000);
+	});
+
+	console.log(msg);
 
 	return (
 		<>
