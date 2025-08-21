@@ -5,7 +5,7 @@ import {
 	StopAndSearchSubPageParams,
 	StopFormattedByEthnicity,
 } from "@/features/stops/lib/types";
-import StopsPieChart from "@/features/stops/components/StopsPieChart";
+import PieChartClient from "@/features/stops/components/PieChartClient";
 
 interface StopEthnicityDemographicsPageProps {
 	params: StopAndSearchSubPageParams;
@@ -33,7 +33,7 @@ export default async function StopEthnicityDemographicsPage({
 	return (
 		<>
 			<h1>Stops: Ethnicity pie chart:</h1>
-			<StopsPieChart
+			<PieChartClient
 				dataConfig={factory}
 				dataKey="stops"
 				nameKey="selfReportedEthnicity"
