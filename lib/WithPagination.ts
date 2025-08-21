@@ -27,7 +27,7 @@ export class WithPagination extends PoliceApiBaseResponseDecorator {
 		const pageCount = Math.ceil(totalNumberOfResults / PAGINATION_PAGE_SIZE);
 
 		if (page > pageCount) {
-			// Cap the requested page to the pageCount limit
+			// Cap the requested page to the pageCount limit 👍
 			page = pageCount;
 		}
 
@@ -37,7 +37,7 @@ export class WithPagination extends PoliceApiBaseResponseDecorator {
 		const newRecords = prevDecoration.data.slice(startIndex, endIndex);
 
 		// 2. Build the pagination metadata object
-		const paginationConfig: Pagination = {
+		const pagination: Pagination = {
 			page,
 			pageSize: PAGINATION_PAGE_SIZE,
 			pageCount,
@@ -47,7 +47,7 @@ export class WithPagination extends PoliceApiBaseResponseDecorator {
 		// 3. Merge in 👍
 		const metadata = {
 			...(prevDecoration.metadata ?? {}),
-			paginationConfig,
+			pagination,
 		};
 
 		return {

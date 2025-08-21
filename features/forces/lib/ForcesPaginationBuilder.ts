@@ -25,7 +25,7 @@ export default class ForcesPaginationBuilder implements PoliceApiBuilder {
 	formatData(): void {
 		if (!this.rawForcesApiData || !this.stopsAvailabilityApiData) {
 			throw new Error(
-				`${errorLogEmojiConfig.patternMisuse}: call fetchData() first`
+				`${errorLogEmojiConfig.patternMisuse}: [in ForcesPaginationBuilder] call fetchData() first`
 			);
 		}
 
@@ -48,7 +48,7 @@ export default class ForcesPaginationBuilder implements PoliceApiBuilder {
 	getDataProduct(): PoliceAPiResponseData {
 		if (!this.finalDataProduct) {
 			throw new Error(
-				`${errorLogEmojiConfig.patternMisuse}: call fetchData() then formatData()`
+				`${errorLogEmojiConfig.patternMisuse}: [in ForcesPaginationBuilder] call fetchData() then formatData()`
 			);
 		}
 

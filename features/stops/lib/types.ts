@@ -1,3 +1,6 @@
+import { ChartConfig } from "@/components/ui/chart";
+import { NullablePoliceApiData } from "@/lib/types";
+
 interface StopStreet {
 	id: number;
 	name: string;
@@ -14,7 +17,7 @@ interface SearchReason {
 	name: string;
 }
 
-export interface Stop {
+export interface BaseStop {
 	age_range: string;
 	officer_defined_ethnicity: string;
 	involved_person: boolean;
@@ -33,7 +36,76 @@ export interface Stop {
 	removal_of_more_than_outer_clothing: boolean;
 }
 
+// 💭 Seen some inconsistencies in the nullishness of data in the API docs
+//  assume they all could be
+export type Stop = NullablePoliceApiData<BaseStop>;
+
+export type QualitativeStop = Pick<
+	Stop,
+	| "outcome"
+	| "self_defined_ethnicity"
+	| "gender"
+	| "outcome_linked_to_object_of_search"
+	| "removal_of_more_than_outer_clothing"
+	| "outcome_object"
+	| "operation_name"
+	| "involved_person"
+>;
+
+export type StopFormattedByEthnicity = Pick<Stop, "self_defined_ethnicity">;
+export type StopFormattedByAgeRange = Pick<Stop, "age_range">;
+
 export interface StopsAvailabilityEntry {
 	date: string;
 	"stop-and-search": string[];
+}
+
+export type StopKeys = keyof Stop;
+
+export interface StopsCategoryChartConfig {
+	chartData: { [dataKey: string]: string | number }[];
+	chartConfig: { [configKey: string]: { label: string; color?: string } };
+}
+
+// 📊 Chart related types
+
+export type StopCategoryKeys = "self_defined_ethnicity" | "age_range";
+
+export type CategoryBasedChartStop =
+	| StopFormattedByEthnicity
+	| StopFormattedByAgeRange;
+
+export type StopsChartConfigHelperFn<
+	S extends Record<C, S[C]>,
+	C extends string
+> = (stopData: S[], category: C) => Promise<StopsChartDataCategoryConfig>;
+
+export type StopsChartDataWeightedCategoryList = {
+	category: string;
+	count: number;
+}[];
+
+export interface StopsChartDataCategoryConfig {
+	[category: string]: number;
+}
+
+export type StopAndSearchSubPageParams = Promise<{
+	forceId: string;
+	date: string;
+	page: string;
+}>;
+
+export type RechartCategoryBasedChartData = {
+	[key: string]: string | number;
+};
+
+export interface ChartConfigProduct {
+	chartPlottableData: RechartCategoryBasedChartData[];
+	chartConfig: ChartConfig;
+}
+
+export interface ChartConfigBuilder {
+	createChartConfig(): void;
+	createPlottableData(): void;
+	getFullConfig(): ChartConfigProduct;
 }

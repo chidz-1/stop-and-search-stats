@@ -2,12 +2,18 @@ import {
 	Force,
 	ForceWithMostRecentStopPublishDate,
 } from "@/features/forces/lib/types";
-import { Stop } from "@/features/stops/lib/types";
+import {
+	QualitativeStop,
+	Stop,
+	StopFormattedByEthnicity,
+} from "@/features/stops/lib/types";
 
 export type PoliceApiResponseTypes =
 	| Force[]
 	| ForceWithMostRecentStopPublishDate[]
-	| Stop[];
+	| Stop[]
+	| QualitativeStop[]
+	| StopFormattedByEthnicity[];
 
 export interface Pagination {
 	page: number;
@@ -34,3 +40,11 @@ export interface PoliceApiBuilder {
 export interface PoliceApiResponseComponent {
 	envelopData(): PoliceAPiResponseData;
 }
+
+export type NullablePoliceApiData<T> = {
+	[K in keyof T]: T[K] | null;
+};
+
+export type PartialRecord<K extends keyof unknown, V> = {
+	[P in K]?: V;
+};
