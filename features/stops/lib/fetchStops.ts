@@ -16,7 +16,7 @@ export async function fetchStops(
 		const response = await fetch(
 			`${policeApiOrigin}/api/stops-force?date=${date}&force=${forceId}`,
 			{
-				cache: "force-cache", // Hard cache, once a month has been published, it's done.
+				cache: "force-cache", // Hard cache, once a month has been published, it's done 👍
 			}
 		);
 
