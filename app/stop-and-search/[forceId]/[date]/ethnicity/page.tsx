@@ -30,15 +30,6 @@ export default async function StopEthnicityDemographicsPage({
 		"self_defined_ethnicity"
 	).getConfig();
 
-	// Confirm loading.tsx is in play
-	const msg = await new Promise((res) => {
-		setTimeout(() => {
-			res(`⌚ Artificial delay finished 👍`);
-		}, 5000);
-	});
-
-	console.log(msg);
-
 	return (
 		<>
 			<h1>Stops: Ethnicity pie chart:</h1>
