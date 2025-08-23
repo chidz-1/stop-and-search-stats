@@ -38,10 +38,11 @@ export interface BaseStop {
 
 // 💭 Seen some inconsistencies in the nullishness of data in the API docs
 //  assume they all could be
-export type Stop = NullablePoliceApiData<BaseStop>;
+export type Stop = NullablePoliceApiData;
 
 export type QualitativeStop = Pick<
 	Stop,
+	| "datetime"
 	| "outcome"
 	| "self_defined_ethnicity"
 	| "gender"
@@ -51,6 +52,8 @@ export type QualitativeStop = Pick<
 	| "operation_name"
 	| "involved_person"
 >;
+
+export type SortableStopKeys = "datetime";
 
 export type StopFormattedByEthnicity = Pick<Stop, "self_defined_ethnicity">;
 export type StopFormattedByAgeRange = Pick<Stop, "age_range">;

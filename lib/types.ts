@@ -3,6 +3,7 @@ import {
 	ForceWithMostRecentStopPublishDate,
 } from "@/features/forces/lib/types";
 import {
+	BaseStop,
 	QualitativeStop,
 	Stop,
 	StopFormattedByEthnicity,
@@ -41,8 +42,8 @@ export interface PoliceApiResponseComponent {
 	envelopData(): PoliceAPiResponseData;
 }
 
-export type NullablePoliceApiData<T> = {
-	[K in keyof T]: T[K] | null;
+export type NullablePoliceApiData = {
+	[K in keyof BaseStop]: BaseStop[K] | null;
 };
 
 export type PartialRecord<K extends keyof unknown, V> = {

@@ -1,5 +1,6 @@
+import { assert } from "node:console";
+
 import {
-	checkEnv,
 	errorLogEmojiConfig,
 	formatBadResponseErrorText,
 } from "@/utils/errorHelpers";
@@ -10,10 +11,17 @@ export async function fetchForces(): Promise<Force[]> {
 	// 💭 Additionally, If I had control over the API I would use a Webhook to call the next.tag
 	// to revalidate if a new force was added.
 	try {
-		const policeApiOrigin = checkEnv(process.env.POLICE_API_ORIGIN);
-		const response = await fetch(`${policeApiOrigin}/api/forces`, {
-			cache: "force-cache",
-		});
+		assert(
+			process.env.POLICE_API_ORIGIN,
+			`${errorLogEmojiConfig.missingEnv}: Missing env variable, refer to README.md for usage`
+		);
+
+		const response = await fetch(
+			`${process.env.POLICE_API_ORIGIN}/api/forces`,
+			{
+				cache: "force-cache",
+			}
+		);
 
 		if (!response.ok) {
 			const { status, statusText } = response;
