@@ -112,3 +112,12 @@ export interface ChartConfigBuilder {
 	createPlottableData(): void;
 	getFullConfig(): ChartConfigProduct;
 }
+
+// Table related types 📅
+
+export interface StopsTableRequestParsedQueryParams {
+	date: string;
+	force: string;
+	page: string;
+	sortBy: `${SortableStopKeys},${"asc" | "desc"}`;
+}

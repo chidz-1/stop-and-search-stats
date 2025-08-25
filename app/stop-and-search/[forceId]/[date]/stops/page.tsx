@@ -1,3 +1,4 @@
+import { STOPS_TABLE_TARGET_COLUMNS } from "@/features/stops/lib/config";
 import StopsTableDataBuilder from "@/features/stops/lib/StopsTableDataBuilder";
 import {
 	QualitativeStop,
@@ -18,17 +19,7 @@ export default async function StopsTablePage({ params }: StopsTablePageProps) {
 			date,
 			forceId,
 			1, // Initial table data will start at the first page (client will handle navigation between pages)
-			[
-				"datetime",
-				"age_range",
-				"outcome",
-				"gender",
-				"outcome_linked_to_object_of_search",
-				"removal_of_more_than_outer_clothing",
-				"outcome_object",
-				"operation_name",
-				"involved_person",
-			],
+			STOPS_TABLE_TARGET_COLUMNS,
 			"datetime",
 			"desc"
 		)

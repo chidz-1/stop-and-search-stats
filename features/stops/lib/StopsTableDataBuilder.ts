@@ -31,9 +31,10 @@ export default class StopsTableDataBuilder implements PoliceApiBuilder {
 		}
 
 		// 🫳🧂 Decorate with
-		// 1. a truncated set of fields (ultimately reduce the fight props size)
-		// 2. sorting
-		// 3. pagination
+
+		// 1️⃣ A truncated set of fields (ultimately reduce the fight props size)
+		// 2️⃣ Lexicographic sorting on a particular column
+		// 3️⃣ Pagination
 
 		const baseDataProduct = new PoliceApiBaseResponseComponent(
 			this.rawStopsApiData
