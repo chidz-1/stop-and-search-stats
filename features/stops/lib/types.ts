@@ -113,11 +113,14 @@ export interface ChartConfigBuilder {
 	getFullConfig(): ChartConfigProduct;
 }
 
-// Table related types 📅
+// Stops table related types 📅
 
+export type stopsTableSortAscOrDesc = "asc" | "desc";
+export type stopsTableSortQueryParamValue =
+	`${SortableStopKeys},${stopsTableSortAscOrDesc}`;
 export interface StopsTableRequestParsedQueryParams {
 	date: string;
 	force: string;
 	page: string;
-	sortBy: `${SortableStopKeys},${"asc" | "desc"}`;
+	sortBy?: stopsTableSortQueryParamValue;
 }
