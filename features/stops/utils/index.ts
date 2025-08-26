@@ -4,9 +4,12 @@ import {
 	StopKeys,
 	StopsChartDataCategoryConfig,
 	StopsChartDataWeightedCategoryList,
+	StopsTableReducerActions,
+	StopsTableReducerState,
 } from "../lib/types";
 import RechartPieChartConfigBuilder from "../lib/RechartPieChartConfigBuilder";
 import PieChartDirector from "@/features/stops/lib/PieChartDirector";
+import { errorLogEmojiConfig } from "@/utils/errorHelpers";
 
 export function isStopsApiData(data: PoliceApiResponseTypes): data is Stop[] {
 	return data.length > 0 && "age_range" in data[0];
@@ -72,7 +75,7 @@ export async function getConfigForPieChart<
 	S extends Record<C, S[C]>,
 	C extends string
 >(stopData: S[], category: C, maxCategories: null | number = null) {
-	// "use cache";
+	// "use cache"; FIXME: start using again
 	// console.log(
 	// 	`💵 [using cache in getConfigForPieChart], timestamp = ${new Date()}`
 	// );
@@ -95,4 +98,25 @@ export async function getConfigForPieChart<
 	);
 
 	return pieChartDirector.getChartConfig();
+}
+
+export function stopsTableReducer(
+	prevState: StopsTableReducerState,
+	action: StopsTableReducerActions
+): StopsTableReducerState {
+	// Exhaustive check on all reducer actions
+	switch (action.type) {
+		case "CHANGE_FORCE":
+			return { ...prevState, force: action.payload };
+		case "CHANGE_PAGE":
+			return { ...prevState, page: action.payload };
+		case "CHANGE_DATE":
+			return { ...prevState, date: action.payload, page: 1 }; // Do not make force change sticky on the pagination
+		default:
+			((_: never) => {
+				throw new Error(
+					`${errorLogEmojiConfig.patternMisuse}: Failed exhaustive check on reducer action = ${_}`
+				);
+			})(action);
+	}
 }

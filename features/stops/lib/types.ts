@@ -43,8 +43,8 @@ export type Stop = NullablePoliceApiData;
 export type QualitativeStop = Pick<
 	Stop,
 	| "datetime"
+	| "age_range"
 	| "outcome"
-	| "self_defined_ethnicity"
 	| "gender"
 	| "outcome_linked_to_object_of_search"
 	| "removal_of_more_than_outer_clothing"
@@ -124,3 +124,14 @@ export interface StopsTableRequestParsedQueryParams {
 	page: string;
 	sortBy?: StopsTableSortQueryParamValue;
 }
+
+export interface StopsTableReducerState {
+	force: string;
+	date: string;
+	page: number;
+}
+
+export type StopsTableReducerActions =
+	| { type: "CHANGE_DATE"; payload: string }
+	| { type: "CHANGE_FORCE"; payload: string }
+	| { type: "CHANGE_PAGE"; payload: number };

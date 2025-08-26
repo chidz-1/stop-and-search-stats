@@ -28,7 +28,7 @@ export default class WithSort<
 				return 0;
 			}
 
-			// Compliment the upcoming string assertion with a runtime check
+			// Compliment the upcoming string assertion with a runtime check - FIXME: zod??
 			if (typeof objAValue !== "string" || typeof objBValue !== "string") {
 				throw new Error(
 					`${errorLogEmojiConfig}: 'WithSort' decorator sorts on string fields only`
