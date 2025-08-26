@@ -115,12 +115,12 @@ export interface ChartConfigBuilder {
 
 // Stops table related types 📅
 
-export type stopsTableSortAscOrDesc = "asc" | "desc";
-export type stopsTableSortQueryParamValue =
-	`${SortableStopKeys},${stopsTableSortAscOrDesc}`;
+export type StopsTableSortAscOrDesc = "asc" | "desc";
+export type StopsTableSortQueryParamValue =
+	`${SortableStopKeys},${StopsTableSortAscOrDesc}`;
 export interface StopsTableRequestParsedQueryParams {
 	date: string;
 	force: string;
 	page: string;
-	sortBy?: stopsTableSortQueryParamValue;
+	sortBy?: StopsTableSortQueryParamValue;
 }

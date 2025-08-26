@@ -3,8 +3,8 @@ import StopsTableDataBuilder from "@/features/stops/lib/StopsTableDataBuilder";
 import {
 	SortableStopKeys,
 	StopsTableRequestParsedQueryParams,
-	stopsTableSortAscOrDesc,
-	stopsTableSortQueryParamValue,
+	StopsTableSortAscOrDesc,
+	StopsTableSortQueryParamValue,
 } from "@/features/stops/lib/types";
 import { PoliceApiResponseDirector } from "@/lib/PoliceApiResponseDirector";
 import { NextRequest, NextResponse } from "next/server";
@@ -21,11 +21,11 @@ export async function GET(request: NextRequest) {
 	// Allow sortBy to be an optional query param - if not present, I sort by datetime descending to the most recent
 	// stop being at the top of the table 🔝
 	const finalSortBy = (sortBy ??
-		"datetime,desc") satisfies stopsTableSortQueryParamValue;
+		"datetime,desc") satisfies StopsTableSortQueryParamValue;
 
 	const [sortColumn, sortDirection] = finalSortBy.split(",") as [
 		SortableStopKeys,
-		stopsTableSortAscOrDesc
+		StopsTableSortAscOrDesc
 	]; // FIXME: 👆 same as above - zod would help here
 
 	const stopsTablePageApiDirector = new PoliceApiResponseDirector(
