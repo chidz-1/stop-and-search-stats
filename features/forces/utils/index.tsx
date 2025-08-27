@@ -33,6 +33,7 @@ export function getForcesPageMarkup(
 					pathToNavigateTo={"/forces"}
 					currentParamPage={currentPage}
 					paginationConfig={paginationConfig}
+					className="mb-4"
 				/>
 			) : null}
 
@@ -53,6 +54,7 @@ export function getForcesPageMarkup(
 					pathToNavigateTo={"/forces"}
 					currentParamPage={currentPage}
 					paginationConfig={paginationConfig}
+					className="mt-4"
 				/>
 			) : null}
 		</main>
