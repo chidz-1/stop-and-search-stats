@@ -10,11 +10,12 @@ import { errorLogEmojiConfig } from "@/utils/errorHelpers";
 export default class RechartPieChartConfigBuilder
 	implements ChartConfigBuilder
 {
+	private chartConfig: ChartConfig | null = null;
+	private plottableChartData: RechartCategoryBasedChartData[] | null = null;
+
 	constructor(
 		private rawCategorizedData: StopsChartDataCategoryConfig,
-		private dataKey: string,
-		private chartConfig: ChartConfig | null = null,
-		private plottableChartData: RechartCategoryBasedChartData[] | null = null
+		private dataKey: string
 	) {}
 
 	createChartConfig(): void {

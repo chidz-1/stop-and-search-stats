@@ -1,5 +1,5 @@
 import CategoryChartConfigFactory from "@/features/stops/lib/CategoryChartConfigFactory";
-import { StopsDataBuilder } from "@/features/stops/lib/StopsDataBuilder";
+import StopsDataBuilder from "@/features/stops/lib/StopsDataBuilder";
 import { PoliceApiResponseDirector } from "@/lib/PoliceApiResponseDirector";
 import {
 	StopAndSearchSubPageParams,

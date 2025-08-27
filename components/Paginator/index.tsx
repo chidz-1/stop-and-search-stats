@@ -1,50 +1,9 @@
 "use client";
 
-import { ArrowLeft, ArrowRight } from "lucide-react";
-import type { Pagination as PaginationApiType } from "@/lib/types";
 import { usePagination } from "./hooks";
-import Link from "next/link";
-
-export interface PaginatorProps {
-	currentParamPage: number;
-	paginationConfig: PaginationApiType;
-	pathToNavigateTo: string;
-	className?: string;
-}
-
-interface PaginatorLinkProps {
-	direction: "left" | "right";
-	page: string;
-}
-
-function PaginatorLink({ direction, page }: PaginatorLinkProps) {
-	let childrenElements = null;
-
-	if (direction === "left") {
-		childrenElements = [
-			<ArrowLeft className="w-6 h-6" key="left" />,
-			<span className="sr-only" key="previous">
-				previous
-			</span>,
-		];
-	} else {
-		childrenElements = [
-			<span className="sr-only" key="right">
-				next
-			</span>,
-			<ArrowRight className="w-6 h-6" key="next" />,
-		];
-	}
-
-	return (
-		<Link
-			className="inline-block p-2 bg-secondary hover:bg-gray-200 focus:bg-gray-200 rounded text-secondary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:outline-primary [backface-visibility:hidden]"
-			href={page}
-		>
-			{childrenElements}
-		</Link>
-	);
-}
+import { cn } from "@/lib/utils";
+import { paginatorMarkupCreator } from "./utils/paginatorMarkupCreator";
+import { PaginatorProps } from "../lib/types";
 
 export default function Paginator({
 	currentParamPage,
@@ -61,16 +20,15 @@ export default function Paginator({
 	const { page, pageCount } = paginationConfig;
 
 	return (
-		<div
-			className={`flex items-center justify-center gap-4 ${className ?? ""}`}
-		>
-			{/* ⬅️ Previous Link */}
-			{page > 1 ? (
-				<PaginatorLink
-					direction="left"
-					page={`${pathToNavigateTo}/${(page - 1).toString()}`}
-				/>
-			) : null}
+		<div className={cn("flex items-center justify-center gap-4", className)}>
+			{/* ⬅️ Previous Links */}
+			{page > 1
+				? paginatorMarkupCreator("link", {
+						direction: "left",
+						pageUrl: `${pathToNavigateTo}/${(page - 1).toString()}`,
+						skipPageUrl: `${pathToNavigateTo}/1`,
+				  })
+				: null}
 			<div className="flex gap-4 items-center">
 				<span>Page</span>
 				<form onSubmit={handleNumberInputSubmission}>
@@ -85,13 +43,14 @@ export default function Paginator({
 				</form>
 				<span>of {pageCount}</span>
 			</div>
-			{/* Next Link ➡️ */}
-			{page < pageCount ? (
-				<PaginatorLink
-					direction="right"
-					page={`${pathToNavigateTo}/${(page + 1).toString()}`}
-				/>
-			) : null}
+			{/* Next Links ➡️ */}
+			{page < pageCount
+				? paginatorMarkupCreator("link", {
+						direction: "right",
+						pageUrl: `${pathToNavigateTo}/${(page + 1).toString()}`,
+						skipPageUrl: `${pathToNavigateTo}/${pageCount.toString()}`,
+				  })
+				: null}
 		</div>
 	);
 }
