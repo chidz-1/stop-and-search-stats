@@ -1,3 +1,4 @@
+import StopsTable from "@/features/stops/components/StopsTable";
 import { STOPS_TABLE_TARGET_COLUMNS } from "@/features/stops/lib/config";
 import StopsTableDataBuilder from "@/features/stops/lib/StopsTableDataBuilder";
 import {
@@ -33,6 +34,13 @@ export default async function StopsTablePage({ params }: StopsTablePageProps) {
 	return (
 		<>
 			<h1>Welcome to the stops page</h1>
+			<StopsTable
+				suppliedData={qualitativeStopData}
+				suppliedDate={date}
+				suppliedForce={forceId}
+				suppliedPage={1}
+				suppliedPageSize={metadata?.pagination?.pageSize || 1}
+			/>
 			<pre>{JSON.stringify(qualitativeStopData, null, 4)}</pre>
 			<pre>{JSON.stringify(metadata, null, 4)}</pre>
 		</>

@@ -106,12 +106,29 @@ export function stopsTableReducer(
 ): StopsTableReducerState {
 	// Exhaustive check on all reducer actions
 	switch (action.type) {
-		case "CHANGE_FORCE":
-			return { ...prevState, force: action.payload };
-		case "CHANGE_PAGE":
-			return { ...prevState, page: action.payload };
-		case "CHANGE_DATE":
-			return { ...prevState, date: action.payload, page: 1 }; // Do not make force change sticky on the pagination
+		case "BACK_ONE":
+			return {
+				...prevState,
+				page: prevState.page > 1 ? prevState.page - 1 : 1,
+			};
+		case "BACK_TO_FIRST":
+			return {
+				...prevState,
+				page: 1,
+			};
+		case "FORWARDS_ONE":
+			return {
+				...prevState,
+				page:
+					prevState.page < prevState.pageSize
+						? prevState.page + 1
+						: prevState.pageSize,
+			};
+		case "FORWARD_TO_END":
+			return {
+				...prevState,
+				page: prevState.pageSize,
+			};
 		default:
 			((_: never) => {
 				throw new Error(

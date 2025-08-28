@@ -129,9 +129,11 @@ export interface StopsTableReducerState {
 	force: string;
 	date: string;
 	page: number;
+	pageSize: number;
 }
 
 export type StopsTableReducerActions =
-	| { type: "CHANGE_DATE"; payload: string }
-	| { type: "CHANGE_FORCE"; payload: string }
-	| { type: "CHANGE_PAGE"; payload: number };
+	| { type: "BACK_ONE" }
+	| { type: "BACK_TO_FIRST" }
+	| { type: "FORWARDS_ONE" }
+	| { type: "FORWARD_TO_END" };
