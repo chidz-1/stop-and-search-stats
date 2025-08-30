@@ -1,6 +1,6 @@
-import type { Pagination as PaginationApiType } from "@/lib/types";
 import { PaginatorLinksProps } from "../PaginatorLinks";
 import { PaginatorButtonsProps } from "../PaginatorButtons";
+import React, { ReactNode } from "react";
 
 export type PaginatorDiscriminator = "link" | "button";
 
@@ -17,10 +17,5 @@ export type PaginatorFactory = <
 ) => React.ReactNode;
 
 export interface PaginatorProps {
-	currentParamPage: number;
-	paginationConfig: PaginationApiType;
-	pathToNavigateTo: string;
-	className?: string;
-	pageCallback?: VoidFunction;
-	skipPageCallback?: VoidFunction;
+	children: ReactNode;
 }

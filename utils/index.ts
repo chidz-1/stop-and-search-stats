@@ -9,3 +9,5 @@ export function parsePageUrlParam(pageParamValue: string) {
 
 	return 1; // Set to the beginning in all other cases
 }
+
+export const isClient = () => typeof window !== "undefined";

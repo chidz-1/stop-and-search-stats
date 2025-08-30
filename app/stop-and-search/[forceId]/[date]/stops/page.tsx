@@ -31,6 +31,12 @@ export default async function StopsTablePage({ params }: StopsTablePageProps) {
 
 	const qualitativeStopData = initialTableData as QualitativeStop[];
 
+	// await new Promise((res) =>
+	// 	setTimeout(() => {
+	// 		res("🧪🔬: Artificial promise delay completed! [5 secs]");
+	// 	}, 5000)
+	// ).then((labResults) => console.log(labResults));
+
 	return (
 		<>
 			<h1>Welcome to the stops page</h1>
@@ -41,7 +47,6 @@ export default async function StopsTablePage({ params }: StopsTablePageProps) {
 				suppliedPage={1}
 				suppliedPageSize={metadata?.pagination?.pageSize || 1}
 			/>
-			<pre>{JSON.stringify(qualitativeStopData, null, 4)}</pre>
 			<pre>{JSON.stringify(metadata, null, 4)}</pre>
 		</>
 	);

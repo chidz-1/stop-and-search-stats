@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useCallback, useReducer } from "react";
 import { stopsTableReducer } from "../../utils";
 import PaginatorButtons from "@/components/PaginatorButtons";
+import { isClient } from "@/utils/";
 
 interface StopsTableProps {
 	suppliedData: QualitativeStop[];
@@ -33,6 +34,7 @@ export default function StopsTable({
 		}
 	);
 
+	// FIXME: The useCallbacks are overkill, need to remove these 👍
 	const forwardOnePageCB = useCallback(() => {
 		dispatchTableAction({ type: "FORWARDS_ONE" });
 	}, []);
@@ -61,7 +63,7 @@ export default function StopsTable({
 		queryKey: [date, force, page],
 		queryFn: () =>
 			fetch(
-				`${process.env.PUBLIC_NEXT_API_ORIGIN}/api/stops?${stopsApiQueryParams}`
+				`${process.env.NEXT_PUBLIC_API_ORIGIN}/api/stops?${stopsApiQueryParams}`
 			).then((response) => response.json()),
 		placeholderData: (prevTableData) => prevTableData,
 		initialData:
@@ -69,6 +71,7 @@ export default function StopsTable({
 			date === suppliedDate && force === suppliedForce && page === suppliedPage
 				? suppliedData
 				: undefined,
+		enabled: isClient, // Only enable on the client side
 	});
 
 	return (
@@ -78,6 +81,7 @@ export default function StopsTable({
 				pageCallback={backOnePageCB}
 				skipPageCallback={backToTheFirstPageCB}
 			/>
+			{<pre>{JSON.stringify(data, null, 3)}</pre>}
 			{"📅"}
 			<PaginatorButtons
 				direction="right"

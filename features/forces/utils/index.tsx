@@ -6,7 +6,7 @@ import { Pagination, PoliceApiResponseTypes } from "@/lib/types";
 import { Force, ForceWithMostRecentStopPublishDate } from "../lib/types";
 import { ForcesCard } from "../Components/ForcesCard";
 import { ForcesGrid } from "../Components/ForcesGrid";
-import Paginator from "@/components/Paginator";
+import RouterPaginator from "@/components/RouterPaginator";
 
 export default function RedirectToPaginatedForcesPage() {
 	redirect("/forces/1");
@@ -28,14 +28,12 @@ export function getForcesPageMarkup(
 	return (
 		<main>
 			{/* Pagination - Top 1️⃣ */}
-			{paginationConfig ? (
-				<Paginator
-					pathToNavigateTo={"/forces"}
-					currentParamPage={currentPage}
-					paginationConfig={paginationConfig}
-					className="mb-4"
-				/>
-			) : null}
+			<RouterPaginator
+				currentPage={currentPage}
+				pageCount={paginationConfig?.pageCount || 1} // TODO: hmm, think the type might need rework
+				pathToNavigateTo="/forces"
+				className="mb-4"
+			/>
 
 			<ForcesGrid>
 				{forces.map(({ id: forceId, mostRecentStopsDate, name: forceName }) => (
@@ -49,14 +47,12 @@ export function getForcesPageMarkup(
 			</ForcesGrid>
 
 			{/* Pagination - Tail 2️⃣ */}
-			{paginationConfig ? (
-				<Paginator
-					pathToNavigateTo={"/forces"}
-					currentParamPage={currentPage}
-					paginationConfig={paginationConfig}
-					className="mt-4"
-				/>
-			) : null}
+			<RouterPaginator
+				currentPage={currentPage}
+				pageCount={paginationConfig?.pageCount || 1} // TODO: hmm, think the type might need rework
+				pathToNavigateTo="/forces"
+				className="mb-4"
+			/>
 		</main>
 	);
 }
