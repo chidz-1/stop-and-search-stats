@@ -1,6 +1,6 @@
 import { PaginatorLinksProps } from "../PaginatorLinks";
 import { PaginatorButtonsProps } from "../PaginatorButtons";
-import React, { ReactNode } from "react";
+import React from "react";
 
 export type PaginatorDiscriminator = "link" | "button";
 
@@ -17,5 +17,7 @@ export type PaginatorFactory = <
 ) => React.ReactNode;
 
 export interface PaginatorProps {
-	children: ReactNode;
+	currentPage: number;
+	pageCount: number;
+	className?: string;
 }

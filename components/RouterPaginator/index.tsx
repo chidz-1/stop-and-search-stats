@@ -4,13 +4,10 @@ import { usePaginationRouterNavigation } from "./hooks";
 import PaginatorInput from "../PaginatorInput";
 import PaginatorLinks from "../PaginatorLinks";
 import { cn } from "@/lib/utils";
-
-type RouterPaginatorProps = {
+import { PaginatorProps } from "../lib/types";
+interface RouterPaginatorProps extends PaginatorProps {
 	pathToNavigateTo: string;
-	currentPage: number;
-	pageCount: number;
-	className?: string;
-};
+}
 
 export default function RouterPaginator({
 	currentPage,
