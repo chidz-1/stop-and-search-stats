@@ -4,12 +4,6 @@
 - Suggestion for telemetry errors
 
 
-  Assumptions about the data:
-  
-  Stops by force:
-  - 
-  - 
-
 ## Police API shortfalls
 
 1. Stops by force:
